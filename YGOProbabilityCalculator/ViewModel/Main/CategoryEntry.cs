@@ -1,18 +1,32 @@
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 using YGOProbabilityCalculator.Views.EventArgs;
+using YGOProbabilityCalculator.ViewModel.Main.Interface;
 
 namespace YGOProbabilityCalculator.ViewModel.Main;
 
-public class CategoryEntry : INotifyPropertyChanged {
+public class CategoryEntry(ICategoryValidator? categoryValidator) : INotifyPropertyChanged {
+    [JsonIgnore] private readonly ICategoryValidator? _categoryValidator = categoryValidator;
     private string _category = string.Empty;
+    private string _pendingCategory = string.Empty;
+
+    [JsonConstructor]
+    public CategoryEntry() : this(null) {
+    }
 
     public string Category {
         get => _category;
         set {
             if (_category == value) return;
-            var old = _category;
-            _category = value;
-            CategoryChanged?.Invoke(this, new CategoryChangedEventArgs(old, value));
+
+            _pendingCategory = value;
+
+            if (_categoryValidator?.IsDuplicateCategory(this, _pendingCategory) != true) {
+                var old = _category;
+                _category = value;
+                CategoryChanged?.Invoke(this, new CategoryChangedEventArgs(old, value));
+            }
+
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Category)));
         }
     }
