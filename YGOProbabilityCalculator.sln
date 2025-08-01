@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YGOProbabilityCalculator", "YGOProbabilityCalculator\YGOProbabilityCalculator.csproj", "{731A49D2-A136-46EE-BAF0-CBF2D95AD3E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YGOProbabilityCalculatorTest", "YGOProbabilityCalculatorTest\YGOProbabilityCalculatorTest.csproj", "{CCAB96F0-FD79-4BDB-9304-E4A15BC7569B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{731A49D2-A136-46EE-BAF0-CBF2D95AD3E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{731A49D2-A136-46EE-BAF0-CBF2D95AD3E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{731A49D2-A136-46EE-BAF0-CBF2D95AD3E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{731A49D2-A136-46EE-BAF0-CBF2D95AD3E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCAB96F0-FD79-4BDB-9304-E4A15BC7569B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCAB96F0-FD79-4BDB-9304-E4A15BC7569B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCAB96F0-FD79-4BDB-9304-E4A15BC7569B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCAB96F0-FD79-4BDB-9304-E4A15BC7569B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
