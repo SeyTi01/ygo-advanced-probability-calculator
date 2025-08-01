@@ -224,7 +224,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Category"
                                         Width="*"
-                                        Binding="{Binding Category, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}">
+                                        Binding="{Binding Category, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}">
                         <DataGridTextColumn.EditingElementStyle>
                             <Style TargetType="TextBox">
                                 <Style.Triggers>
