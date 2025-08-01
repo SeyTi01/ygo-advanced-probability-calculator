@@ -1,6 +1,6 @@
 using System.ComponentModel;
-using YGOProbabilityCalculator.ViewModel.Main.Interface;
 using YGOProbabilityCalculator.Views.EventArgs;
+using YGOProbabilityCalculator.ViewModel.Main.Interface;
 
 namespace YGOProbabilityCalculator.ViewModel.Main;
 
@@ -15,7 +15,7 @@ public class CategoryEntry(ICategoryValidator? categoryValidator = null) : INoti
 
             _pendingCategory = value;
 
-            if (categoryValidator == null || !categoryValidator.IsDuplicateCategory(this, _pendingCategory)) {
+            if (categoryValidator?.IsDuplicateCategory(this, _pendingCategory) != true) {
                 var old = _category;
                 _category = value;
                 CategoryChanged?.Invoke(this, new CategoryChangedEventArgs(old, value));

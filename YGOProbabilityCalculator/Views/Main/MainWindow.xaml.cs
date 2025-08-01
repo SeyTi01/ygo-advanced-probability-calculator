@@ -7,15 +7,18 @@ using System.Windows.Controls;
 using Microsoft.Win32;
 using YGOProbabilityCalculator.Model;
 using YGOProbabilityCalculator.Service;
+using YGOProbabilityCalculator.Service.Interface;
 using YGOProbabilityCalculator.ViewModel.Main;
+using YGOProbabilityCalculator.ViewModel.Main.Interface;
 using YGOProbabilityCalculator.Views.Dialogs;
 using YGOProbabilityCalculator.Views.EventArgs;
 
 namespace YGOProbabilityCalculator.Views.Main;
 
-public sealed partial class MainWindow : INotifyPropertyChanged {
+public sealed partial class MainWindow : INotifyPropertyChanged, ICategoryContainer {
     private readonly DeckImportService _deckImportService;
     private readonly SessionService _sessionService;
+    private readonly ICategoryValidator _categoryValidator;
     private CalculationMode _mode = CalculationMode.Default;
     private int _deckCount;
     private bool _isCalculating;
@@ -47,6 +50,7 @@ public sealed partial class MainWindow : INotifyPropertyChanged {
         var cardInfoService = new CardInfoService(fileService, jsonSerializer);
         _deckImportService = new DeckImportService(cardInfoService);
         _sessionService = new SessionService(fileService, jsonSerializer);
+        _categoryValidator = new MainWindowCategoryValidator(this);
 
         InitializeComponent();
         DataContext = this;
@@ -419,10 +423,21 @@ public sealed partial class MainWindow : INotifyPropertyChanged {
         MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    private static void PopulateCollection<T>(ObservableCollection<T> collection, IEnumerable<T> items) {
+    private void PopulateCollection<T>(ObservableCollection<T> collection, IEnumerable<T> items) {
         collection.Clear();
-        foreach (var item in items)
-            collection.Add(item);
+        foreach (var item in items) {
+            if (item is CategoryEntry categoryEntry) {
+                var newEntry = new CategoryEntry(_categoryValidator) {
+                    Category = categoryEntry.Category,
+                    MinCount = categoryEntry.MinCount,
+                    MaxCount = categoryEntry.MaxCount
+                };
+                collection.Add((T)(object)newEntry);
+            }
+            else {
+                collection.Add(item);
+            }
+        }
     }
 
     private void OnPropertyChanged([CallerMemberName] string? propertyName = null) {
